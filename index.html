@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fluspop</title>
+<link rel="icon" type="image/webp" href="assets/head.webp">
+<link rel="alternate icon" type="image/png" href="assets/head.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink: #d9285e;
+    --blue: #0068c0;
+    --icon-bg: #fdde23;
+    --btn: #ff7a1a;
+    --white: #ffffff;
+    --ink: #23262b;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family: 'Inter', sans-serif;
+    color: var(--white);
+    background: var(--blue);
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3{ font-family: 'Inter', sans-serif; }
+  a, button{ font-family: 'Inter', sans-serif; }
+
+  /* ============ HERO ============ */
+  .hero{
+    position: relative;
+    background: var(--pink);
+    padding: 8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    height: 100svh;
+  }
+
+  .hero-inner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero-logo{
+    width: 100%;
+    max-width: 340px;
+    height: auto;
+    display: block;
+    background: transparent;
+  }
+
+  .hero-text{
+    font-size: clamp(14px, 2.4vw, 22px);
+    font-weight: 400;
+    margin-top: 32px;
+    line-height: 1.5;
+    opacity: 0.95;
+    color: var(--white);
+    max-width: 620px;
+  }
+
+  .btn-start{
+    margin-top: 32px;
+    display: inline-block;
+    background: var(--icon-bg);
+    color: var(--blue);
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    padding: 12px 46px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn-start:hover{ transform: translateY(-2px); }
+  .btn-start:active{ transform: translateY(1px); }
+
+  .wave{
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    line-height: 0;
+  }
+  .wave svg{ width: 100%; height: 80px; display:block; }
+
+  /* ============ LOBBY SECTION (logo + slot list) ============ */
+  .lobby-section{
+    background: var(--white);
+    padding: 70px 8vw 90px;
+  }
+
+  .lobby-logo-wrap{
+    text-align: center;
+  }
+  .lobby-logo{
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    display: inline-block;
+  }
+
+  /* toggle buttons */
+  .toggle-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 28px 0 36px;
+    flex-wrap: wrap;
+  }
+
+  .toggle-btn{
+    background: transparent;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    padding: 12px 40px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .toggle-btn.male{
+    border: 2px solid var(--blue);
+    color: var(--blue);
+  }
+  .toggle-btn.male.active{
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .toggle-btn.female{
+    border: 2px solid var(--pink);
+    color: var(--pink);
+  }
+  .toggle-btn.female.active{
+    background: var(--pink);
+    color: var(--white);
+  }
+
+  /* slot list box */
+  .list-box{
+    max-width: 520px;
+    margin: 0 auto;
+    border-radius: 0;
+    padding: 34px 30px 30px;
+    color: var(--white);
+    transition: background 0.2s ease;
+  }
+  .list-box.male{ background: var(--blue); }
+  .list-box.female{ background: var(--pink); }
+
+  .list-box h3{
+    text-align: center;
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding-bottom: 16px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #ffffff;
+  }
+
+  .list-rows{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .list-row{
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+
+  .list-row .name{ white-space: nowrap; }
+  .list-row .username{ white-space: nowrap; color: #ffffff; opacity: 1; }
+  .list-row .dots{
+    flex: 1 1 auto;
+    min-width: 20px;
+    border-bottom: 2px dotted rgba(255,255,255,0.65);
+    margin-bottom: 4px;
+  }
+
+  .claim-btn{
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    background: transparent;
+    border: 1.5px solid var(--white);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    padding: 14px 20px;
+    border-radius: 0px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .claim-btn:hover{ opacity: 0.85; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 720px){
+    .hero{ padding: 8vw; }
+    .hero-logo{ max-width: 220px; }
+    .hero-text{ font-size: 12px; margin-top: 20px; }
+    .btn-start{ padding: 10px 34px; font-size: 13px; margin-top: 22px; }
+
+    .lobby-section{ padding: 46px 6vw 60px; }
+    .lobby-logo{ max-width: 190px; }
+    .toggle-btn{ padding: 10px 28px; font-size: 13px; }
+    .list-box{ padding: 26px 20px 24px; border-radius: 0; }
+    .list-row{ font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img class="hero-logo" src="assets/LOGO.webp" alt="Logo">
+      <p class="hero-text">
+        A <strong>LITTLE FLIPSY</strong> WITH A SPLASH OF SLUSHY AND A WHOLE LOT OF SUMMER MAGIC WAITING TO <strong>POP OFF</strong>.
+      </p>
+      <button class="btn-start" id="startBtn">START</button>
+    </div>
+
+    <div class="wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#ffffff" d="M0,40 C40,10 80,10 120,40 C160,70 200,70 240,40 C280,10 320,10 360,40 C400,70 440,70 480,40 C520,10 560,10 600,40 C640,70 680,70 720,40 C760,10 800,10 840,40 C880,70 920,70 960,40 C1000,10 1040,10 1080,40 C1120,70 1160,70 1200,40 C1240,10 1280,10 1320,40 C1360,70 1400,70 1440,40 L1440,80 L0,80 Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ LOBBY SECTION ============ -->
+  <section class="lobby-section" id="lobby">
+    <div class="lobby-logo-wrap">
+      <img class="lobby-logo" src="assets/logo-colored.webp" alt="fluspop logo">
+    </div>
+
+    <div class="toggle-wrap">
+      <button class="toggle-btn male active" id="maleBtn">MALE</button>
+      <button class="toggle-btn female" id="femaleBtn">FEMALE</button>
+    </div>
+
+    <div class="list-box male" id="listBox">
+      <h3>WELCOME, FLUSHES!</h3>
+      <div class="list-rows" id="listRows"></div>
+      <a class="claim-btn" href="https://x.com/fluspop" target="_blank" rel="noopener">PLEASE CLAIM YOUR SLOT ASAP! :&gt;</a>
+    </div>
+  </section>
+
+<script>
+  // ===== EDIT YOUR SLOT DATA HERE =====
+  const DATA = {
+    male: [
+      { name: 'RM', username: '@moonrahm' },
+      { name: 'Jungkook', username: '@kookiepop' },
+      { name: 'V', username: '@taehyungvvs' },
+      { name: 'Jimin', username: '@jiminflus' },
+      { name: 'Jin', username: '@seokjinnie' },
+      { name: 'Suga', username: '@agustdzzz' },
+      { name: 'J-Hope', username: '@hobiglow' },
+      { name: 'Kai', username: '@kkaimirror' },
+      { name: 'Baekhyun', username: '@baekhyunee' },
+      { name: 'Chanyeol', username: '@yeolpop' },
+      { name: 'Sehun', username: '@sehunbunny' },
+      { name: 'Felix', username: '@lixdream' },
+      { name: 'Hyunjin', username: '@hyunjinuwu' },
+      { name: 'Han', username: '@hanjjang' },
+      { name: 'Bang Chan', username: '@chanflus' },
+      { name: 'Mingyu', username: '@gyuminpop' },
+      { name: 'Wonwoo', username: '@wonwoozzz' },
+      { name: 'Hoshi', username: '@hoshining' },
+      { name: 'Taeyong', username: '@taeyongmoon' },
+      { name: 'Jaehyun', username: '@jaehyunpop' },
+      { name: 'San', username: '@choisanpop' },
+      { name: 'Wooyoung', username: '@wooyoungie' }
+    ],
+    female: [
+      { name: 'Jennie', username: '@jennierubyy' },
+      { name: 'Lisa', username: '@lalalisapop' },
+      { name: 'Rosé', username: '@roseanne_p' },
+      { name: 'Jisoo', username: '@jisoofairy' },
+      { name: 'Karina', username: '@karinaeric' },
+      { name: 'Winter', username: '@winterkim_' },
+      { name: 'Giselle', username: '@gigiflus' },
+      { name: 'Ningning', username: '@ningningz' },
+      { name: 'IU', username: '@dlwlrmaya' },
+      { name: 'Wonyoung', username: '@wonyoungie' },
+      { name: 'Yujin', username: '@yujinpop' },
+      { name: 'Sakura', username: '@sakuraflus' },
+      { name: 'Chaewon', username: '@chaewonnie' },
+      { name: 'Yunjin', username: '@yunjinbb' },
+      { name: 'Ryujin', username: '@ryujinpop' },
+      { name: 'Yeji', username: '@yejicat' },
+      { name: 'Nayeon', username: '@nayeonpop' },
+      { name: 'Sana', username: '@minatozsana' },
+      { name: 'Momo', username: '@momoflus' },
+      { name: 'Minji', username: '@minjilamp' },
+      { name: 'Hanni', username: '@hannipop' },
+      { name: 'Danielle', username: '@daniellemrs' }
+    ]
+  };
+  // ===== END EDIT AREA =====
+
+  const maleBtn = document.getElementById('maleBtn');
+  const femaleBtn = document.getElementById('femaleBtn');
+  const listBox = document.getElementById('listBox');
+  const listRows = document.getElementById('listRows');
+
+  function renderList(type){
+    listBox.className = 'list-box ' + type;
+    listRows.innerHTML = DATA[type].map(p => `
+      <div class="list-row">
+        <span class="name">${p.name}</span>
+        <span class="dots"></span>
+        <span class="username">${p.username}</span>
+      </div>
+    `).join('');
+
+    maleBtn.classList.toggle('active', type === 'male');
+    femaleBtn.classList.toggle('active', type === 'female');
+  }
+
+  maleBtn.addEventListener('click', () => renderList('male'));
+  femaleBtn.addEventListener('click', () => renderList('female'));
+
+  // Smooth scroll START -> lobby section
+  document.getElementById('startBtn').addEventListener('click', function(){
+    document.getElementById('lobby').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  renderList('male');
+</script>
+
+</body>
+</html>
